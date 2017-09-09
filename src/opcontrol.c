@@ -12,6 +12,9 @@
 
 #include "main.h"
 
+// Include a utility header with function definitions which streamline the code
+#include "util.h"
+
 /*
  * Runs the user operator control code. This function will be started in its own task with the
  * default priority and stack size whenever the robot is enabled via the Field Management System
@@ -42,10 +45,6 @@ void printCharToTopLine(int pos, char c){
 void operatorControl() {
 	// menu state
 	int state = 0;
-
-	// lift power
-	int liftpowerA = 0;
-	int liftpowerB = 0;
 
 	// enable drive/lift
 	bool drive = true;
@@ -100,23 +99,10 @@ void operatorControl() {
 	// main loop, motors 2 and 4 reversed
 	while (1){
 		// write to the drive motors
-		if (drive){
-			motorSet (2, joystickGetAnalog(1, 3) );
-			motorSet (3, rev * joystickGetAnalog(1, 3) );
-			motorSet (4, -1 * joystickGetAnalog(1, 2) );
-			motorSet (5, rev * -1 * joystickGetAnalog(1, 2) );
-		}
+		tankDriveControl(drive, rev);
 
 		// write to the lift motors
-		if (lift){
-			motorSet(6, liftpowerA);
-			motorSet(7, - liftpowerA);
-			motorSet(8, - liftpowerB);
-			motorSet(9, liftpowerB);
-		}
-
-		liftpowerA = joystickGetAnalog(1, 4);
-		liftpowerB = liftpowerA;
+		liftControl(lift);
 
 		// handle the menu
 		if(joystickGetDigital(1, 7, JOY_UP)) { state++; }
@@ -136,7 +122,6 @@ void operatorControl() {
 			case 3:
 				lcdPrint(uart2, 2, "ACX: %d", joystickGetAnalog(1, ACCEL_X));
 				break;
-			case 4:
 				lcdPrint(uart2, 2, "ACY:%d", joystickGetAnalog(1, ACCEL_Y));
 				break;
 			default:
