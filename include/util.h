@@ -2,7 +2,10 @@
 #define _util_h
 
 // Declare drive function
-void tankDriveControl(bool enabled, int rev);
+// enabled determines whether the drive operates
+// rev determines whether any channels are reversed
+// divbyforlow is the factor to divide the power by for low speed
+void tankDriveControl(bool enabled, int rev, int divbyforlow);
 
 // Declare lift function
 void liftControl(bool enabled);
