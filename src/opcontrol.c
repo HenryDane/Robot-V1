@@ -99,7 +99,7 @@ void operatorControl() {
 	// main loop, motors 2 and 4 reversed
 	while (1){
 		// write to the drive motors
-		tankDriveControl(drive, rev, 4);
+		tankDriveControl(drive, rev, 0);
 
 		// write to the lift motors
 		liftControl(lift);
@@ -122,7 +122,7 @@ void operatorControl() {
 			case 3:
 				lcdPrint(uart2, 2, "ACX: %d", joystickGetAnalog(1, ACCEL_X));
 				break;
-				lcdPrint(uart2, 2, "ACY:%d", joystickGetAnalog(1, ACCEL_Y));
+				lcdPrint(uart2, 2, "ACY: %d", joystickGetAnalog(1, ACCEL_Y));
 				break;
 			default:
 				lcdSetText(uart2, 2, "Escaped sw-c!");
