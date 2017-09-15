@@ -8,7 +8,7 @@ void tankDriveControl(bool enabled, int rev, int divbyforlow) {
 
   int joy2 = joystickGetAnalog(1, 2) / divbyforlow;
   int joy3 = joystickGetAnalog(1, 3) / divbyforlow;
-  
+
   if (enabled) {
     motorSet (2, joy3);
     motorSet (3, rev * joy3);
@@ -18,11 +18,22 @@ void tankDriveControl(bool enabled, int rev, int divbyforlow) {
 }
 
 void liftControl(bool enabled) {
-  int joy4 = joystickGetAnalog(1, 4);
+  int joy4 = 0;
+
+  if (joystickGetDigital(1, 8, JOY_UP)){
+    joy4 = 127;
+  }
+
+  if (joystickGetDigital(1, 8, JOY_DOWN)){
+    joy4 = -127;
+  }
+
+  if (joystickGetDigital(1, 8, JOY_LEFT) || joystickGetDigital(1, 8, JOY_RIGHT)){
+    joy4 = 0;
+  }
+  
   if (enabled){
     motorSet(6, joy4);
-    motorSet(7, joy4);
-    motorSet(8, joy4);
-    motorSet(9, joy4);
+    motorSet(7, - joy4);
   }
 }

@@ -99,7 +99,7 @@ void operatorControl() {
 	// main loop, motors 2 and 4 reversed
 	while (1){
 		// write to the drive motors
-		tankDriveControl(drive, rev);
+		tankDriveControl(drive, rev, 4);
 
 		// write to the lift motors
 		liftControl(lift);
