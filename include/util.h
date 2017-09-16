@@ -11,4 +11,10 @@ void tankDriveControl(bool enabled, int rev, int divbyforlow);
 // Declare lift function
 void liftControl(bool enabled);
 
+// define the secondary lift function
+void secondaryLift(void);
+
+// define the claw function
+void handleClaw(void);
+
 #endif

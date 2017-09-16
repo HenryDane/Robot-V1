@@ -99,11 +99,17 @@ void operatorControl() {
 	// main loop, motors 2 and 4 reversed
 	while (1){
 		// write to the drive motors
-		tankDriveControl(drive, rev, 0);
+		tankDriveControl(drive, rev, 1);
 
 		// write to the lift motors
 		liftControl(lift);
 
+		// write to secondary lift
+		secondaryLift();
+
+		// handle the claw
+		handleClaw();
+		
 		// handle the menu
 		if(joystickGetDigital(1, 7, JOY_UP)) { state++; }
 		if(joystickGetDigital(1, 7, JOY_DOWN)) { state--; }
